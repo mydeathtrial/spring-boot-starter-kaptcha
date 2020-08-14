@@ -6,4 +6,4 @@
  * @version 1.0
  * @since 1.0
  */
-package com.agile.common.kaptcha;
+package cloud.agileframework.kaptcha.kaptcha;

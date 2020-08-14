@@ -4,9 +4,27 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.agileframework</groupId>
+    <name>spring-boot-starter-kaptcha</name>
+    <groupId>cloud.agileframework</groupId>
     <artifactId>spring-boot-starter-kaptcha</artifactId>
-    <version>1.0</version>
+    <version>0.1</version>
+    <packaging>jar</packaging>
+    <description>spring-boot-starter for google kaptcha</description>
+    <url>https://github.com/mydeathtrial/spring-boot-starter-kaptcha</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>https://github.com/mydeathtrial/spring-boot-starter-kaptcha.git</connection>
+        <developerConnection>https://github.com/mydeathtrial/spring-boot-starter-kaptcha.git</developerConnection>
+        <url>https://github.com/mydeathtrial/spring-boot-starter-kaptcha</url>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -19,16 +37,29 @@
         <kaptcha.version>2.3.2</kaptcha.version>
     </properties>
 
+    <developers>
+        <developer>
+            <id>TongMeng</id>
+            <name>TongMeng</name>
+            <email>mydeathtrial@163.com</email>
+            <roles>
+                <role>architect</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
+    </developers>
+
     <repositories>
         <repository>
-            <id>privateMaven</id>
-            <url>http://10.10.10.9:8081/nexus/content/groups/public/</url>
+            <id>cent</id>
+            <url>https://repo1.maven.org/maven2/</url>
         </repository>
         <repository>
             <id>spring</id>
             <url>https://repo.spring.io/milestone/</url>
         </repository>
     </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -44,18 +75,13 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.agileframework</groupId>
+            <groupId>cloud.agileframework</groupId>
             <artifactId>agile-cache</artifactId>
-            <version>LATEST</version>
+            <version>0.1.0</version>
         </dependency>
 
         <!--#验证码-->
@@ -82,8 +108,41 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>release</releaseProfiles>
+                    <goals>deploy</goals>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -92,7 +151,40 @@
                     <execution>
                         <id>attach-sources</id>
                         <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
                             <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <charset>UTF-8</charset>
+                            <additionalOptions>-Xdoclint:none</additionalOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.6</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>sign</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -101,9 +193,13 @@
     </build>
 
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>agile</id>
-            <url>http://10.10.10.9:8081/nexus/content/repositories/agile/</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 </project>

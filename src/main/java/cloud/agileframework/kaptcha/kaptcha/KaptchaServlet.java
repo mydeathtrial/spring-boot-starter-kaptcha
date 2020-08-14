@@ -1,8 +1,7 @@
-package com.agile.common.kaptcha;
+package cloud.agileframework.kaptcha.kaptcha;
 
-import com.agile.common.cache.AgileCacheManager;
-import com.agile.common.properties.KaptchaConfigProperties;
-import com.agile.common.util.CacheUtil;
+import cloud.agileframework.cache.util.CacheUtil;
+import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
@@ -69,7 +68,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
     private String createCode(HttpServletRequest req, HttpServletResponse resp) {
         String capText = this.kaptchaProducer.createText();
 
-        String codeToken = codeToken(req);
+        String codeToken = KaptchaContextHolder.codeToken(req);
         if (codeToken == null) {
             codeToken = UUID.randomUUID().toString();
         }
@@ -78,21 +77,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
         return capText;
     }
 
-    private String codeToken(HttpServletRequest req) {
-        String codeToken;
 
-        codeToken = req.getHeader(kaptchaConfigProperties.getTokenHeader());
-        if (codeToken == null && req.getCookies() != null) {
-            codeToken = Arrays.stream(req.getCookies())
-                    .filter(cookie -> cookie.getName().equals(kaptchaConfigProperties.getTokenHeader()))
-                    .map(Cookie::getValue)
-                    .findFirst().orElse(null);
-        }
-        if (codeToken == null) {
-            codeToken = (String) req.getAttribute(kaptchaConfigProperties.getTokenHeader());
-        }
-        return codeToken;
-    }
 
     private void setOutParam(String codeToken, String value, HttpServletResponse response) {
         Cookie cookie = new Cookie(codeToken, value);

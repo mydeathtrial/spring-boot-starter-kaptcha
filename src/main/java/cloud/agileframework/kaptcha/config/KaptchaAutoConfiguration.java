@@ -1,12 +1,14 @@
-package com.agile.common.config;
+package cloud.agileframework.kaptcha.config;
 
-import com.agile.common.kaptcha.AgileTextProducer;
-import com.agile.common.kaptcha.KaptchaServlet;
-import com.agile.common.properties.KaptchaConfigProperties;
+import cloud.agileframework.kaptcha.kaptcha.AgileTextProducer;
+import cloud.agileframework.kaptcha.kaptcha.KaptchaContextHolder;
+import cloud.agileframework.kaptcha.kaptcha.KaptchaServlet;
+import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,7 +25,7 @@ import javax.servlet.http.HttpServlet;
 @EnableConfigurationProperties(value = {KaptchaConfigProperties.class})
 @ConditionalOnClass({DefaultKaptcha.class})
 @ConditionalOnProperty(name = "enable", prefix = "agile.kaptcha", havingValue = "true")
-public class KaptchaAutoConfiguration {
+public class KaptchaAutoConfiguration implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(KaptchaAutoConfiguration.class);
 
     private final KaptchaConfigProperties kaptchaConfigProperties;
@@ -51,5 +53,10 @@ public class KaptchaAutoConfiguration {
         DefaultKaptcha defaultKaptcha = new DefaultKaptcha();
         defaultKaptcha.setConfig(new Config(kaptchaConfigProperties.getProperties()));
         return defaultKaptcha;
+    }
+
+    @Override
+    public void afterPropertiesSet() {
+        KaptchaContextHolder.initConfig(kaptchaConfigProperties);
     }
 }

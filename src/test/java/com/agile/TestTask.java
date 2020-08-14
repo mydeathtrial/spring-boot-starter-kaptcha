@@ -1,6 +1,7 @@
 package com.agile;
 
-import com.agile.common.properties.KaptchaConfigProperties;
+import cloud.agileframework.kaptcha.kaptcha.KaptchaContextHolder;
+import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -23,10 +24,8 @@ public class TestTask {
     private final Logger logger = LoggerFactory.getLogger(TestTask.class);
 
     @Autowired
-    private KaptchaConfigProperties properties;
-
-    @Autowired
     TestRestTemplate restTemplate;
+
     @Test
     public void code() {
         String a = restTemplate.getForObject("/code", String.class);

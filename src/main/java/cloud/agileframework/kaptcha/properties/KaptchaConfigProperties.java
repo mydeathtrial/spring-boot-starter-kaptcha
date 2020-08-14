@@ -1,4 +1,4 @@
-package com.agile.common.properties;
+package cloud.agileframework.kaptcha.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

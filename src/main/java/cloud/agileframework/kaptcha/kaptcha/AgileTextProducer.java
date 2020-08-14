@@ -1,6 +1,6 @@
-package com.agile.common.kaptcha;
+package cloud.agileframework.kaptcha.kaptcha;
 
-import com.agile.common.properties.KaptchaConfigProperties;
+import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import com.google.code.kaptcha.text.TextProducer;
 import com.google.code.kaptcha.util.Configurable;
 import org.springframework.beans.factory.annotation.Autowired;
