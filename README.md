@@ -29,6 +29,14 @@
 以版本spring-boot-starter-kaptcha-2.0.0.jar为例。
 #### 步骤 2: 添加maven依赖
 ```xml
+<!--声明中央仓库-->
+<repositories>
+    <repository>
+        <id>cent</id>
+        <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+</repositories>
+<!--声明依赖-->
 <dependency>
     <groupId>cloud.agileframework</groupId>
     <artifactId>spring-boot-starter-kaptcha</artifactId>
