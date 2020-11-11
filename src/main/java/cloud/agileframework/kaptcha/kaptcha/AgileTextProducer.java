@@ -8,6 +8,7 @@ import org.springframework.util.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.Random;
 
 /**
  * @author 佟盟
@@ -28,7 +29,7 @@ public class AgileTextProducer extends Configurable implements TextProducer {
         AgileTextProducer.kaptchaConfigProperties = kaptchaConfigProperties;
     }
 
-    private final SecureRandom random = SecureRandom.getInstanceStrong();
+    private final Random random = new Random();
 
     @Override
     public String getText() {
