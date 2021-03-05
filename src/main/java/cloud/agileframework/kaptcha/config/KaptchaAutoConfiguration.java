@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServlet;
 @Configuration
 @EnableConfigurationProperties(value = {KaptchaConfigProperties.class})
 @ConditionalOnClass({DefaultKaptcha.class})
-@ConditionalOnProperty(name = "enable", prefix = "agile.kaptcha", havingValue = "true")
+@ConditionalOnProperty(name = "enable", prefix = "agile.kaptcha", matchIfMissing = true)
 public class KaptchaAutoConfiguration implements InitializingBean {
     private final Logger logger = LoggerFactory.getLogger(KaptchaAutoConfiguration.class);
 

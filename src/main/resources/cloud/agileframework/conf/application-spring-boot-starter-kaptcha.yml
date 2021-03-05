@@ -25,6 +25,5 @@ agile:
             names: '"微软雅黑"'
             size: 40
           impl: cloud.agileframework.kaptcha.kaptcha.AgileTextProducer
-    text: abc123
     token-header: V-CODE
     url: /code

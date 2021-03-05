@@ -14,7 +14,7 @@ public class KaptchaConfigProperties implements InitializingBean {
     /**
      * 开关
      */
-    private boolean enable;
+    private boolean enable = true;
     /**
      * 验证码访问地址
      */

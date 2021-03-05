@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -37,7 +36,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
     public void init(ServletConfig conf) throws ServletException {
         super.init(conf);
         WebApplicationContext applicationContext = WebApplicationContextUtils.getWebApplicationContext(getServletContext());
-        if(applicationContext!=null){
+        if (applicationContext != null) {
             applicationContext.getAutowireCapableBeanFactory().autowireBean(this);
         }
     }
@@ -45,7 +44,7 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try (
-                ServletOutputStream out = resp.getOutputStream();
+                ServletOutputStream out = resp.getOutputStream()
         ) {
             initResponse(resp);
             String capText = createCode(req, resp);
@@ -76,7 +75,6 @@ public class KaptchaServlet extends HttpServlet implements Servlet {
         setOutParam(kaptchaConfigProperties.getTokenHeader(), codeToken, resp);
         return capText;
     }
-
 
 
     private void setOutParam(String codeToken, String value, HttpServletResponse response) {

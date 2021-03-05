@@ -1,7 +1,5 @@
 package com.agile;
 
-import cloud.agileframework.kaptcha.kaptcha.KaptchaContextHolder;
-import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -19,7 +17,7 @@ import org.springframework.test.context.junit4.SpringRunner;
  * @since 1.0
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = App.class,webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(classes = App.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class TestTask {
     private final Logger logger = LoggerFactory.getLogger(TestTask.class);
 
