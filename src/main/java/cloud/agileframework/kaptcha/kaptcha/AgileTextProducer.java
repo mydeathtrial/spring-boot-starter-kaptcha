@@ -35,7 +35,7 @@ public class AgileTextProducer extends Configurable implements TextProducer {
         int length = getConfig().getTextProducerCharLength();
         assert kaptchaConfigProperties != null;
         String text = kaptchaConfigProperties.getText();
-        if (StringUtils.isEmpty(text)) {
+        if (text == null || "".equals(text)) {
             return defaultGetText();
         }
         char[] s = text.toCharArray();
