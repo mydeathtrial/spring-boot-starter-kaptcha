@@ -3,6 +3,7 @@ package cloud.agileframework.kaptcha.config;
 import cloud.agileframework.kaptcha.kaptcha.AgileTextProducer;
 import cloud.agileframework.kaptcha.kaptcha.KaptchaContextHolder;
 import cloud.agileframework.kaptcha.kaptcha.KaptchaServlet;
+import cloud.agileframework.kaptcha.kaptcha.KaptchaUndertowServlet;
 import cloud.agileframework.kaptcha.properties.KaptchaConfigProperties;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
@@ -34,8 +35,7 @@ public class KaptchaAutoConfiguration implements InitializingBean {
         this.kaptchaConfigProperties = kaptchaConfigProperties;
         AgileTextProducer.setKaptchaConfigProperties(kaptchaConfigProperties);
     }
-
-
+    
     @Bean
     public ServletRegistrationBean<HttpServlet> kaptchaServlet() {
         if (logger.isDebugEnabled()) {
@@ -47,6 +47,21 @@ public class KaptchaAutoConfiguration implements InitializingBean {
         reg.addUrlMappings(kaptchaConfigProperties.getUrl());
         return reg;
     }
+
+    @ConditionalOnClass(name = "org.apache.catalina.servlets.DefaultServlet")
+    @Bean
+    public ServletRegistrationBean<HttpServlet> kaptchaServlet2() {
+        if (logger.isDebugEnabled()) {
+            logger.debug("完成初始化登录验证码");
+        }
+
+        ServletRegistrationBean<HttpServlet> reg = new ServletRegistrationBean<>();
+        reg.setServlet(new KaptchaUndertowServlet());
+        reg.addUrlMappings(kaptchaConfigProperties.getUrl());
+        return reg;
+    }
+    
+    
 
     @Bean
     DefaultKaptcha defaultKaptcha() {
