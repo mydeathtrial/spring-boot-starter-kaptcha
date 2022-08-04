@@ -35,7 +35,7 @@ public class KaptchaAutoConfiguration implements InitializingBean {
         this.kaptchaConfigProperties = kaptchaConfigProperties;
         AgileTextProducer.setKaptchaConfigProperties(kaptchaConfigProperties);
     }
-    
+
     @Bean
     public ServletRegistrationBean<HttpServlet> kaptchaServlet() {
         if (logger.isDebugEnabled()) {
@@ -60,8 +60,7 @@ public class KaptchaAutoConfiguration implements InitializingBean {
         reg.addUrlMappings(kaptchaConfigProperties.getUrl());
         return reg;
     }
-    
-    
+
 
     @Bean
     DefaultKaptcha defaultKaptcha() {

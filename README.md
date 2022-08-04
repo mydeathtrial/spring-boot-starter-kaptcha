@@ -9,7 +9,8 @@
   组件通过spring-boot-starter方式加载
 
 * **支持集群/分布式**
-  验证码生成后，存于缓存，组件中的缓存部分由agile-cache缓存提供，当集群/分布式环境中，可将缓存配置为redis缓存，以此实现 无状态化服务
+  验证码生成后，存于缓存，组件中的缓存部分由agile-cache缓存提供，当集群/分布式环境中，可将缓存配置为redis缓存，以此实现
+  无状态化服务
 
 * **开放所有自定义配置**
   开放了可以开放的所有配置项
@@ -28,7 +29,8 @@
 
 #### 步骤 1: 下载包
 
-您可以从[最新稳定版本]下载包(https://github.com/mydeathtrial/spring-boot-starter-kaptcha/releases). 该包已上传至maven中央仓库，可在pom中直接声明引用
+您可以从[最新稳定版本]下载包(https://github.com/mydeathtrial/spring-boot-starter-kaptcha/releases).
+该包已上传至maven中央仓库，可在pom中直接声明引用
 
 以版本spring-boot-starter-kaptcha-2.1.0.M5.jar为例。
 
